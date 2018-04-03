@@ -2,9 +2,9 @@
 
 Simple progress bar in react
 
-# State
+# Demo
 
-In progress
+`npm start`
 
 # Props
 
@@ -41,14 +41,15 @@ Is the wrapper of the label, center the label as you prefer.
 This the default styles you should override
 
 ```
+// default style
 .dyna-progress-bar {
     &__background{
-        background-color: white;
-        border: 1px solid black;
+        background-color: lightgray;
+        border: 1px solid grey;
     }
     &__progress{
-        background-color: gray;
-        border-right: 1px solid black;
+        background-color: rebeccapurple;
+        border-right: 1px solid grey;
     }
     &__label{
     }

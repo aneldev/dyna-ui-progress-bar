@@ -44,6 +44,7 @@ export default {
 						min: 0,
 						max: 1000,
 						value: 0,
+						isLoading: false,
 						label: 'starting...',
 					} as IDynaProgressBarProps
 				},
@@ -54,6 +55,7 @@ export default {
 						min: 0,
 						max: 1000,
 						value: 250,
+						isLoading: true,
 						label: 'loading...',
 					} as IDynaProgressBarProps
 				},
@@ -64,6 +66,7 @@ export default {
 						min: 0,
 						max: 1000,
 						value: 500,
+						isLoading: true,
 						label: 'loading...',
 					} as IDynaProgressBarProps
 				},
@@ -74,6 +77,7 @@ export default {
 						min: 0,
 						max: 1000,
 						value: 750,
+						isLoading: true,
 						label: 'loading...',
 					} as IDynaProgressBarProps
 				},
@@ -84,6 +88,7 @@ export default {
 						min: 0,
 						max: 1000,
 						value: 1000,
+						isLoading: false,
 						label: 'completed',
 					} as IDynaProgressBarProps
 				},

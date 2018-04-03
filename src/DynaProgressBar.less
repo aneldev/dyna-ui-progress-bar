@@ -6,6 +6,7 @@
     overflow: hidden;
 
     &__progress {
+        position: relative;
         transition: width 250ms ease-in-out;
         height: 100%;
         // width is coming from js
@@ -21,24 +22,34 @@
         align-content: center;
     }
 
-    &__isloading {
+    // dyna-progress-bar__is-loading--active
+
+    &__is-loading {
         position: absolute;
         top:0;
         bottom:0;
         left:0;
         right:0;
+        transition: opacity 250ms ease-in-out;
+
+        &--active{
+            opacity: 0.5;
+        }
+        &--inactive{
+            opacity: 0;
+        }
     }
 }
 
 // default style
 .dyna-progress-bar {
     &__background{
-        background-color: white;
-        border: 1px solid black;
+        background-color: lightgray;
+        border: 1px solid grey;
     }
     &__progress{
-        background-color: gray;
-        border-right: 1px solid black;
+        background-color: rebeccapurple;
+        border-right: 1px solid grey;
     }
     &__label{
     }

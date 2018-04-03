@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DynaLoadingGhost } from "dyna-ui-loading-ghost";
 
 import "./DynaProgressBar.less";
 
@@ -32,9 +33,13 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 		} = this.props;
 
 		const className: string = [
+			userClassName,
 			'dyna-progress-bar',
 			'dyna-progress-bar__background',
-			userClassName,
+		].join(' ').trim();
+
+		const isLoadingClassName: string = [
+			"dyna-progress-bar__is-loading",
 			`dyna-progress-bar__is-loading--${isLoading ? "active" : "inactive"}`,
 		].join(' ').trim();
 
@@ -44,11 +49,12 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 
 		return (
 			<div className={className}>
-				{progressPercent > 0 ? <div className="dyna-progress-bar__progress" style={{width: `${progressPercent}%`}}/> : null}
+				{progressPercent > 0 ?
+					<div className="dyna-progress-bar__progress" style={{width: `${progressPercent}%`}}>
+						<DynaLoadingGhost className={isLoadingClassName}/>
+					</div>
+					: null}
 				<div className="dyna-progress-bar__label">{label}</div>
-				<div className="dyna-progress-bar__is-loading">
-
-				</div>
 			</div>
 		);
 	}
