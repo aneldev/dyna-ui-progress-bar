@@ -1,0 +1,45 @@
+// layout
+.dyna-progress-bar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    &__progress {
+        transition: width 250ms ease-in-out;
+        height: 100%;
+        // width is coming from js
+    }
+
+    &__label {
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        display: flex;
+        align-content: center;
+    }
+
+    &__isloading {
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
+}
+
+// default style
+.dyna-progress-bar {
+    &__background{
+        background-color: white;
+        border: 1px solid black;
+    }
+    &__progress{
+        background-color: gray;
+        border-right: 1px solid black;
+    }
+    &__label{
+    }
+}
