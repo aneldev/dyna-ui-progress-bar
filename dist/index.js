@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("dyna-ui-loading-ghost"));
 	else if(typeof define === 'function' && define.amd)
-		define("dyna-ts-react-module-boilerplate", ["react"], factory);
+		define("dyna-ui-progress-bar", ["react", "dyna-ui-loading-ghost"], factory);
 	else if(typeof exports === 'object')
-		exports["dyna-ts-react-module-boilerplate"] = factory(require("react"));
+		exports["dyna-ui-progress-bar"] = factory(require("react"), require("dyna-ui-loading-ghost"));
 	else
-		root["dyna-ts-react-module-boilerplate"] = factory(root["react"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
+		root["dyna-ui-progress-bar"] = factory(root["react"], root["dyna-ui-loading-ghost"]);
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -87,11 +87,8 @@ module.exports = __webpack_require__(1);
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DynaButton_1 = __webpack_require__(2);
-exports.DynaButton = DynaButton_1.DynaButton;
-exports.EStyle = DynaButton_1.EStyle;
-exports.EColor = DynaButton_1.EColor;
-exports.ESize = DynaButton_1.ESize;
+var DynaProgressBar_1 = __webpack_require__(2);
+exports.DynaProgressBar = DynaProgressBar_1.DynaProgressBar;
 
 
 /***/ }),
@@ -112,52 +109,48 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
-__webpack_require__(4);
-var EStyle;
-(function (EStyle) {
-    EStyle["ROUNDED"] = "ROUNDED";
-})(EStyle = exports.EStyle || (exports.EStyle = {}));
-var EColor;
-(function (EColor) {
-    EColor["WHITE_BLACK"] = "WHITE_BLACK";
-    EColor["WHITE_RED"] = "WHITE_RED";
-    EColor["BLACK_WHITE"] = "BLACK_WHITE";
-    EColor["TRANSPARENT_WHITE"] = "TRANSPARENT_WHITE";
-})(EColor = exports.EColor || (exports.EColor = {}));
-var ESize;
-(function (ESize) {
-    ESize["SMALL"] = "SMALL";
-    ESize["MEDIUM"] = "MEDIUM";
-    ESize["LARGE"] = "LARGE";
-    ESize["XLARGE"] = "XLARGE";
-})(ESize = exports.ESize || (exports.ESize = {}));
-var DynaButton = /** @class */ (function (_super) {
-    __extends(DynaButton, _super);
-    function DynaButton() {
+var dyna_ui_loading_ghost_1 = __webpack_require__(4);
+__webpack_require__(5);
+var DynaProgressBar = /** @class */ (function (_super) {
+    __extends(DynaProgressBar, _super);
+    function DynaProgressBar() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DynaButton.prototype.render = function () {
-        var _a = this.props, children = _a.children, style = _a.style, color = _a.color, size = _a.size, href = _a.href, onClick = _a.onClick;
+    DynaProgressBar.prototype.render = function () {
+        var _a = this.props, userClassName = _a.className, min = _a.min, max = _a.max, value = _a.value, isLoading = _a.isLoading, label = _a.label;
         var className = [
-            'dyna-button',
-            "dnbtn-style-" + style,
-            "dnbtn-color-" + color,
-            "dnbtn-size-" + size,
+            userClassName,
+            'dyna-progress-bar',
+            'dyna-progress-bar__background',
         ].join(' ').trim();
-        return (React.createElement("a", { className: className, href: href, onClick: onClick },
-            React.createElement("button", null, children)));
+        var isLoadingClassName = [
+            "dyna-progress-bar__is-loading",
+            "dyna-progress-bar__is-loading--" + (isLoading ? "active" : "inactive"),
+        ].join(' ').trim();
+        var progressPercent = 100 * (value - min) / (max - min);
+        if (progressPercent < 0)
+            progressPercent = 0;
+        if (progressPercent > 100)
+            progressPercent = 100;
+        return (React.createElement("div", { className: className },
+            progressPercent > 0 ?
+                React.createElement("div", { className: "dyna-progress-bar__progress", style: { width: progressPercent + "%" } },
+                    React.createElement(dyna_ui_loading_ghost_1.DynaLoadingGhost, { className: isLoadingClassName }))
+                : null,
+            React.createElement("div", { className: "dyna-progress-bar__label" }, label)));
     };
-    DynaButton.defaultProps = {
-        children: null,
-        style: EStyle.ROUNDED,
-        color: EColor.WHITE_BLACK,
-        size: ESize.MEDIUM,
-        href: null,
+    DynaProgressBar.defaultProps = {
+        className: '',
+        min: 0,
+        max: 100,
+        value: 50,
+        isLoading: false,
+        label: null,
         onClick: function () { return undefined; },
     };
-    return DynaButton;
+    return DynaProgressBar;
 }(React.Component));
-exports.DynaButton = DynaButton;
+exports.DynaProgressBar = DynaProgressBar;
 
 
 /***/ }),
@@ -168,12 +161,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -181,14 +180,14 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/postcss-loader/lib/index.js??ref--4-2!../node_modules/less-loader/dist/cjs.js!./dyna-button.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/postcss-loader/lib/index.js??ref--4-2!../node_modules/less-loader/dist/cjs.js!./dyna-button.less");
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/postcss-loader/lib/index.js??ref--4-2!../node_modules/less-loader/dist/cjs.js!./DynaProgressBar.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/postcss-loader/lib/index.js??ref--4-2!../node_modules/less-loader/dist/cjs.js!./DynaProgressBar.less");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -198,21 +197,21 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(false);
+exports = module.exports = __webpack_require__(7)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".dyna-button {\n  outline: none;\n}\n.dyna-button.dnbtn-style-ROUNDED {\n  font-size: 0;\n}\n.dyna-button.dnbtn-style-ROUNDED button {\n  outline: none;\n  border-style: solid;\n  cursor: pointer;\n  -webkit-transition: background-color 200ms ease-out;\n  transition: background-color 200ms ease-out;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-SMALL button {\n  padding: 2px 8px;\n  font-size: 8px;\n  line-height: 10px;\n  border-width: 1px;\n  border-radius: 8px;\n  font-weight: bold;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-SMALL button:active {\n  position: relative;\n  top: 1px;\n  left: 1px;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-MEDIUM button {\n  padding: 4px 16px;\n  font-size: 14px;\n  line-height: 22px;\n  border-width: 1px;\n  border-radius: 16px;\n  font-weight: bold;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-MEDIUM button:active {\n  position: relative;\n  top: 1px;\n  left: 1px;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-LARGE button {\n  padding: 8px 32px;\n  font-size: 26px;\n  line-height: 46px;\n  border-width: 1px;\n  border-radius: 32px;\n  font-weight: bold;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-LARGE button:active {\n  position: relative;\n  top: 2px;\n  left: 2px;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-XLARGE button {\n  padding: 16px 64px;\n  font-size: 40px;\n  line-height: 92px;\n  border-width: 2px;\n  border-radius: 64px;\n  font-weight: bold;\n}\n.dyna-button.dnbtn-style-ROUNDED.dnbtn-size-XLARGE button:active {\n  position: relative;\n  top: 2px;\n  left: 2px;\n}\n.dyna-button.dnbtn-color-WHITE_BLACK button {\n  border-color: black;\n  background: white;\n  color: black;\n}\n.dyna-button.dnbtn-color-WHITE_BLACK button:hover {\n  background-color: #e6e6e6;\n}\n.dyna-button.dnbtn-color-WHITE_BLACK button:active {\n  background-color: #d1d1d1;\n}\n.dyna-button.dnbtn-color-WHITE_RED button {\n  border-color: red;\n  background: white;\n  color: red;\n}\n.dyna-button.dnbtn-color-WHITE_RED button:hover {\n  background-color: #e6e6e6;\n}\n.dyna-button.dnbtn-color-WHITE_RED button:active {\n  background-color: #d1d1d1;\n}\n.dyna-button.dnbtn-color-BLACK_WHITE button {\n  border-color: black;\n  background: black;\n  color: white;\n}\n.dyna-button.dnbtn-color-BLACK_WHITE button:hover {\n  background-color: #333333;\n}\n.dyna-button.dnbtn-color-BLACK_WHITE button:active {\n  background-color: #525252;\n}\n.dyna-button.dnbtn-color-TRANSPARENT_WHITE button {\n  border-color: white;\n  background: transparent;\n  color: white;\n}\n.dyna-button.dnbtn-color-TRANSPARENT_WHITE button:hover {\n  border-color: #e6e6e6;\n  color: #e6e6e6;\n}\n.dyna-button.dnbtn-color-TRANSPARENT_WHITE button:active {\n  border-color: #d1d1d1;\n  color: #d1d1d1;\n}\n", ""]);
+exports.push([module.i, ".dyna-progress-bar {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.dyna-progress-bar__progress {\n  position: relative;\n  -webkit-transition: width 250ms ease-in-out;\n  transition: width 250ms ease-in-out;\n  height: 100%;\n}\n.dyna-progress-bar__label {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-line-pack: center;\n      align-content: center;\n}\n.dyna-progress-bar__is-loading {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-progress-bar__is-loading--active {\n  opacity: 0.5;\n}\n.dyna-progress-bar__is-loading--inactive {\n  opacity: 0;\n}\n.dyna-progress-bar__background {\n  background-color: lightgray;\n  border: 1px solid grey;\n}\n.dyna-progress-bar__progress {\n  background-color: rebeccapurple;\n  border-right: 1px solid grey;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -294,7 +293,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -340,7 +339,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -653,7 +652,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
