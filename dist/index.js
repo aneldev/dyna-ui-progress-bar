@@ -118,25 +118,27 @@ var DynaProgressBar = /** @class */ (function (_super) {
     }
     DynaProgressBar.prototype.render = function () {
         var _a = this.props, userClassName = _a.className, min = _a.min, max = _a.max, value = _a.value, isLoading = _a.isLoading, label = _a.label;
-        var className = [
-            userClassName,
-            'dyna-progress-bar',
-            'dyna-progress-bar__background',
-        ].join(' ').trim();
-        var isLoadingClassName = [
-            "dyna-progress-bar__is-loading",
-            "dyna-progress-bar__is-loading--" + (isLoading ? "active" : "inactive"),
-        ].join(' ').trim();
         var progressPercent = 100 * (value - min) / (max - min);
         if (progressPercent < 0)
             progressPercent = 0;
         if (progressPercent > 100)
             progressPercent = 100;
+        var className = [
+            userClassName,
+            'dyna-progress-bar',
+            'dyna-progress-bar__background',
+        ].join(' ').trim();
+        var progressBarClassName = [
+            "dyna-progress-bar__progress",
+            Math.round(progressPercent) === 0 ? "zero-progress" : "",
+        ].join(' ').trim();
+        var isLoadingClassName = [
+            "dyna-progress-bar__is-loading",
+            "dyna-progress-bar__is-loading--" + (isLoading ? "active" : "inactive"),
+        ].join(' ').trim();
         return (React.createElement("div", { className: className },
-            progressPercent > 0 ?
-                React.createElement("div", { className: "dyna-progress-bar__progress", style: { width: progressPercent + "%" } },
-                    React.createElement(dyna_ui_loading_ghost_1.DynaLoadingGhost, { className: isLoadingClassName }))
-                : null,
+            React.createElement("div", { className: progressBarClassName, style: { width: progressPercent + "%" } },
+                React.createElement(dyna_ui_loading_ghost_1.DynaLoadingGhost, { className: isLoadingClassName })),
             React.createElement("div", { className: "dyna-progress-bar__label" }, label)));
     };
     DynaProgressBar.defaultProps = {
@@ -205,7 +207,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, ".dyna-progress-bar {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.dyna-progress-bar__progress {\n  position: relative;\n  -webkit-transition: width 250ms ease-in-out;\n  transition: width 250ms ease-in-out;\n  height: 100%;\n}\n.dyna-progress-bar__label {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-line-pack: center;\n      align-content: center;\n}\n.dyna-progress-bar__is-loading {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-progress-bar__is-loading--active {\n  opacity: 0.5;\n}\n.dyna-progress-bar__is-loading--inactive {\n  opacity: 0;\n}\n.dyna-progress-bar__background {\n  background-color: lightgray;\n  border: 1px solid grey;\n}\n.dyna-progress-bar__progress {\n  background-color: rebeccapurple;\n  border-right: 1px solid grey;\n}\n", ""]);
+exports.push([module.i, ".dyna-progress-bar {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.dyna-progress-bar__progress {\n  position: relative;\n  -webkit-transition: width 250ms ease-in-out;\n  transition: width 250ms ease-in-out;\n  height: 100%;\n}\n.dyna-progress-bar__progress.zero-progress {\n  border: 0;\n}\n.dyna-progress-bar__label {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.dyna-progress-bar__is-loading {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-progress-bar__is-loading--active {\n  opacity: 0.5;\n}\n.dyna-progress-bar__is-loading--inactive {\n  opacity: 0;\n}\n.dyna-progress-bar__background {\n  background-color: lightgray;\n  border: 1px solid grey;\n}\n.dyna-progress-bar__progress {\n  background-color: rebeccapurple;\n  border-right: 1px solid grey;\n}\n", ""]);
 
 // exports
 
