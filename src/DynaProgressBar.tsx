@@ -32,10 +32,19 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 			label,
 		} = this.props;
 
+		let progressPercent: number = 100 * (value - min) / (max - min);
+		if (progressPercent < 0) progressPercent = 0;
+		if (progressPercent > 100) progressPercent = 100;
+
 		const className: string = [
 			userClassName,
 			'dyna-progress-bar',
 			'dyna-progress-bar__background',
+		].join(' ').trim();
+
+		const progressBarClassName: string = [
+			"dyna-progress-bar__progress",
+			Math.round(progressPercent) === 0 ? "zero-progress" : "",
 		].join(' ').trim();
 
 		const isLoadingClassName: string = [
@@ -43,17 +52,11 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 			`dyna-progress-bar__is-loading--${isLoading ? "active" : "inactive"}`,
 		].join(' ').trim();
 
-		let progressPercent: number = 100 * (value - min) / (max - min);
-		if (progressPercent < 0) progressPercent = 0;
-		if (progressPercent > 100) progressPercent = 100;
-
 		return (
 			<div className={className}>
-				{progressPercent > 0 ?
-					<div className="dyna-progress-bar__progress" style={{width: `${progressPercent}%`}}>
-						<DynaLoadingGhost className={isLoadingClassName}/>
-					</div>
-					: null}
+				<div className={progressBarClassName} style={{width: `${progressPercent}%`}}>
+					<DynaLoadingGhost className={isLoadingClassName}/>
+				</div>
 				<div className="dyna-progress-bar__label">{label}</div>
 			</div>
 		);
