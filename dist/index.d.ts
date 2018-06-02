@@ -1,2 +1,2 @@
 import { DynaProgressBar, IDynaProgressBarProps } from "./DynaProgressBar";
-export { DynaProgressBar, IDynaProgressBarProps };
+export { DynaProgressBar, IDynaProgressBarProps, };

@@ -2,6 +2,7 @@ import * as React from "react";
 import "./DynaProgressBar.less";
 export interface IDynaProgressBarProps {
     className?: string;
+    animationEnabled?: boolean;
     min: number;
     max: number;
     value: number;

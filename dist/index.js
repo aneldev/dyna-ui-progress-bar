@@ -117,7 +117,7 @@ var DynaProgressBar = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DynaProgressBar.prototype.render = function () {
-        var _a = this.props, userClassName = _a.className, min = _a.min, max = _a.max, value = _a.value, isLoading = _a.isLoading, label = _a.label;
+        var _a = this.props, userClassName = _a.className, animationEnabled = _a.animationEnabled, min = _a.min, max = _a.max, value = _a.value, isLoading = _a.isLoading, label = _a.label;
         var progressPercent = 100 * (value - min) / (max - min);
         if (progressPercent < 0)
             progressPercent = 0;
@@ -137,12 +137,12 @@ var DynaProgressBar = /** @class */ (function (_super) {
             "dyna-progress-bar__is-loading--" + (isLoading ? "active" : "inactive"),
         ].join(' ').trim();
         return (React.createElement("div", { className: className },
-            React.createElement("div", { className: progressBarClassName, style: { width: progressPercent + "%" } },
-                React.createElement(dyna_ui_loading_ghost_1.DynaLoadingGhost, { className: isLoadingClassName })),
+            React.createElement("div", { className: progressBarClassName, style: { width: progressPercent + "%" } }, animationEnabled ? React.createElement(dyna_ui_loading_ghost_1.DynaLoadingGhost, { className: isLoadingClassName }) : null),
             React.createElement("div", { className: "dyna-progress-bar__label" }, label)));
     };
     DynaProgressBar.defaultProps = {
         className: '',
+        animationEnabled: true,
         min: 0,
         max: 100,
         value: 50,
