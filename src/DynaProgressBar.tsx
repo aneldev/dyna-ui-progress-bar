@@ -5,6 +5,7 @@ import "./DynaProgressBar.less";
 
 export interface IDynaProgressBarProps {
 	className?: string;
+	animationEnabled?: boolean;
 	min: number;
 	max: number;
 	value: number;
@@ -16,6 +17,7 @@ export interface IDynaProgressBarProps {
 export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 	static defaultProps: IDynaProgressBarProps = {
 		className: '',
+		animationEnabled: true,
 		min: 0,
 		max: 100,
 		value: 50,
@@ -27,6 +29,7 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 	public render(): JSX.Element {
 		const {
 			className: userClassName,
+			animationEnabled,
 			min, max, value,
 			isLoading,
 			label,
@@ -55,7 +58,7 @@ export class DynaProgressBar extends React.Component<IDynaProgressBarProps> {
 		return (
 			<div className={className}>
 				<div className={progressBarClassName} style={{width: `${progressPercent}%`}}>
-					<DynaLoadingGhost className={isLoadingClassName}/>
+					{animationEnabled ? <DynaLoadingGhost className={isLoadingClassName}/> : null}
 				</div>
 				<div className="dyna-progress-bar__label">{label}</div>
 			</div>
